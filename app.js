@@ -187,7 +187,7 @@ function renderModel() {
   let bars = hist.map((v, i) => `<rect x="${i * bw + 3}" y="${H - (v / mx) * H}" width="${bw - 6}" height="${(v / mx) * H}" rx="3" fill="#3ea4e4"/>`).join('');
   const ref = H - (c.test.n / 10 / mx) * H;
   bars += `<line x1="0" x2="${W}" y1="${ref}" y2="${ref}" stroke="#000" stroke-dasharray="3 3"/><text x="0" y="-4" style="fill:#000">- - - perfectly calibrated (flat)</text>`;
-  $('calPanel').innerHTML = `<h4 class="headline" style="font-size:22px;line-height:26px">Ready-time bands are calibrated</h4>
+  $('calPanel').innerHTML = `<h4 class="headline">Ready-time bands are calibrated</h4>
     <p class="sub" style="margin-top:8px">The scenario spread was tuned on ${c.nCalShifts} past shifts so 80% bands cover 80% of trailers, then checked on ${c.nTestShifts} later shifts it never saw.</p>
     <div class="statrow"><div class="stat"><span class="caption">Test coverage</span><div class="v blue">${pct(c.test.coverage)}</div></div>
     <div class="stat"><span class="caption">Independent picks</span><div class="v">${pct(c.naiveTest.coverage)}</div></div>
@@ -206,7 +206,7 @@ function renderModel() {
     rg += `<text x="0" y="${y + 4}" style="fill:${flag ? '#3ea4e4' : '#000'}">${r.id}</text><line x1="${lx(Math.max(lo, r.lo))}" x2="${lx(Math.min(hi, r.hi))}" y1="${y}" y2="${y}" stroke="${flag ? '#3ea4e4' : '#808080'}" stroke-width="6" stroke-linecap="round"/><circle cx="${lx(r.mult)}" cy="${y}" r="5" fill="${flag ? '#3ea4e4' : '#000'}" stroke="#f2ecea" stroke-width="2"/><text x="${RW}" y="${y + 4}" text-anchor="end" style="fill:${flag ? '#3ea4e4' : '#808080'}">${r.mult.toFixed(2)}×</text>`;
   });
   const flagged = rs.filter((r) => r.lo > 1.3);
-  $('robotPanel').innerHTML = `<h4 class="headline" style="font-size:22px;line-height:26px">Pick reliability by robot</h4>
+  $('robotPanel').innerHTML = `<h4 class="headline">Pick reliability by robot</h4>
     <p class="sub" style="margin-top:8px">Intervention rate relative to a typical robot, after adjusting for what each robot picked (pack type, weight, height). Gamma-Poisson shrinkage, 90% intervals.</p>
     <div class="statrow"><div class="stat"><span class="caption">Picks logged</span><div class="v">${fmt(model.nPicks)}</div></div>
     <div class="stat"><span class="caption">Interventions</span><div class="v">${fmt(model.nIv)}</div></div>
