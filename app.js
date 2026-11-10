@@ -7,7 +7,9 @@ let site, model, split, cal, ranked, noRush;
 const SEVAL = 500;
 const ARROW = '<svg class="arrow" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="20"/><path d="M11 20h17M21 12.5l7.5 7.5-7.5 7.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 const pct = (x) => `${Math.round(x * 100)}%`;
-const pts = (x) => `${x >= 0 ? '+' : '−'}${Math.abs(Math.round(x * 100))}`;
+const pts = (x) => { const v = Math.round(x * 100); return `${v > 0 ? '+' : v < 0 ? '−' : '±'}${Math.abs(v)}`; };
+const ptsUnit = (x) => (Math.abs(Math.round(x * 100)) === 1 ? 'pt' : 'pts');
+const aOrAn = (p) => (/^(8|11|18)/.test(String(Math.round(p * 100))) ? 'an' : 'a');
 const clock = (sec) => { const m = Math.round(sec / 60) + 15 * 60; const h = Math.floor(m / 60) % 24, mm = m % 60; return `${String(h).padStart(2, '0')}:${String(mm).padStart(2, '0')}`; };
 const fmt = (n) => n.toLocaleString('en-US');
 const tick = () => new Promise((r) => setTimeout(r, 0));
@@ -93,7 +95,7 @@ function render() {
   const ink = (x) => `<span class="ink">${x}</span>`;
   $('heroText').innerHTML = `<span class="caption caption-blue">Shift plan</span>` + (rushOn
     ? `Accepting the rush order for ${store.name} drops the chance that all ${t.trailers.length} trailers leave on time from ${ink(pct(noRush.pAllOn))} to ${ink(pct(b.pAllOn))}. ${PHRASE[top.key](top)} gets it back to ${ink(pct(top.eval.pAllOn))}.`
-    : `There is a ${ink(pct(b.pAllOn))} chance that all ${t.trailers.length} trailers leave on time tonight. ${PHRASE[top.key](top)} raises it to ${ink(pct(top.eval.pAllOn))}.`);
+    : `There is ${aOrAn(b.pAllOn)} ${ink(pct(b.pAllOn))} chance that all ${t.trailers.length} trailers leave on time tonight. ${PHRASE[top.key](top)} raises it to ${ink(pct(top.eval.pAllOn))}.`);
   const fact = (k, v) => `<div class="fact"><span class="caption caption-white">${k}:</span><span class="caption caption-white v">${v}</span></div>`;
   $('facts').innerHTML = fact('Shift', `${site.shiftStart}–${site.shiftEnd}`) + fact('Fleet', `${ctx.robots.length} robots · ${state.nAssoc} associates`)
     + fact('Work', `${nPal} pallets · ${fmt(nCases)} cases`) + fact('Rush order', rushOn ? `Store ${store.id} · ${site.rush.pallets.length} pallets · ${tr.id}` : 'Declined');
@@ -103,7 +105,7 @@ function render() {
   $('cards').innerHTML = ranked.actions.map((a, i) => `
     <li><button class="card" data-k="${a.key}">
       <div class="t"><h4 class="headline">${a.label}${i === 0 ? '<span class="caption tag">Best</span>' : ''}</h4><p class="caption">${a.detail}</p></div>
-      <div class="num"><div class="big">${pts(a.delta.mean)} pts</div>
+      <div class="num"><div class="big">${pts(a.delta.mean)} ${ptsUnit(a.delta.mean)}</div>
         <p class="caption">P(all on time) ${pct(b.pAllOn)} → ${pct(a.eval.pAllOn)}</p>
         <p class="caption">90% CI ${pts(a.delta.lo)} to ${pts(a.delta.hi)} pts · paired</p></div>
       ${ARROW}

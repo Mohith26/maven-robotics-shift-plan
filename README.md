@@ -49,6 +49,7 @@ Ground-truth check (400 simulated nights under the hidden physics, rush order ac
 - No travel congestion, no battery swaps, no pallet-build sequencing constraints beyond heavy-first stacking, no forklift or dock-door limits.
 - The service action assumes a 20-minute fix restores typical reliability. In reality the cause of R-07's interventions would need to be diagnosed first.
 - Calibration is marginal over trailers and was done under departure-order dispatch; using it for the optimized plan assumes the error structure transfers.
+- Dispatch is dynamic, so a change that should only help (one more associate) can occasionally shift which robot takes which pallet and cost a point on the same scenarios, a Graham-style scheduling anomaly. The page shows these honestly rather than clipping them at zero.
 - The forecast is made at 15:00 and not updated during the shift. An obvious next step is to update the shift effect online from the first hour of picks.
 
 ## Novelty note
