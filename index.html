@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shift Plan · Maven Fleet (concept)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@500&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%23000'/%3E%3C/svg%3E">
+</head>
+<body>
+<header class="app-header">
+  <nav class="app-nav caption" aria-label="Fleet">
+    <a href="#">Fleet</a>
+    <a href="#">Tasks</a>
+    <a href="#" class="active">Shift Plan</a>
+    <a href="#">Interventions</a>
+    <a href="#">Sites</a>
+    <a href="#">Reports</a>
+  </nav>
+  <a class="logo-link" href="#" aria-label="Maven"><img src="assets/maven-logo.svg" alt="Maven"></a>
+  <div class="header-right">
+    <span class="caption site-pill" id="sitePill">DC-04</span>
+    <span class="avatar" aria-hidden="true">OPS</span>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <h1 class="hero-text" id="heroText"><span class="caption caption-blue">Shift plan</span>Planning tonight's shift.</h1>
+    <div class="facts" id="facts"></div>
+  </section>
+
+  <p class="caption caption-blue section-label">Tonight</p>
+  <section class="group">
+    <h3 class="group-title"><span>Scenario</span><span class="caption" id="scenarioCount"></span></h3>
+    <div class="controls">
+      <span class="caption">Rush order</span>
+      <div class="seg" id="rushSeg">
+        <button data-v="accept" class="on">Accept on T-10</button>
+        <button data-v="decline">Decline</button>
+      </div>
+      <span class="caption" style="margin-left:14px">Floor associates</span>
+      <div class="stepper"><button id="aMinus" aria-label="fewer associates">−</button><span class="caption caption-ink" id="aVal">2</span><button id="aPlus" aria-label="more associates">+</button></div>
+      <span class="caption status" id="status"></span>
+    </div>
+  </section>
+
+  <section class="group">
+    <h3 class="group-title"><span>Recommended actions</span><span class="caption" id="actCount"></span></h3>
+    <ul class="cards" id="cards"></ul>
+  </section>
+
+  <section class="group">
+    <h3 class="group-title"><span>Trailers</span><span class="caption" id="trCount"></span></h3>
+    <div class="panel">
+      <table class="trailers" id="trailers"></table>
+      <div class="legend caption" id="trLegend"></div>
+    </div>
+  </section>
+
+  <section class="group">
+    <h3 class="group-title"><span>Dispatch plan</span><span class="caption" id="ganttCount"></span></h3>
+    <div class="panel"><div id="gantt"></div><div class="legend caption" id="ganttLegend"></div></div>
+  </section>
+
+  <p class="caption caption-blue section-label">Evidence</p>
+  <section class="group">
+    <h3 class="group-title"><span>Model</span><span class="caption" id="modelCount"></span></h3>
+    <div class="grid2">
+      <div class="panel" id="calPanel"></div>
+      <div class="panel" id="robotPanel"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <nav class="caption footer-links" aria-label="Footer">
+    <a href="https://github.com/Mohith26/maven-robotics-shift-plan">Source and method</a>
+    <a href="https://github.com/Mohith26/maven-robotics-shift-plan#how-it-works">How it works</a>
+    <a href="https://github.com/Mohith26/maven-robotics-shift-plan#limitations">Limitations</a>
+  </nav>
+  <div class="caption footer-copy">Unofficial concept demo by Mohith Gajjela. Not affiliated with Maven Robotics. Synthetic data.</div>
+  <img class="footer-logo" src="assets/maven-logo-gray.svg" width="622" height="285" alt="">
+</footer>
+
+<div class="loading" id="loading"><div class="box"><div class="headline" style="font-size:22px;line-height:26px">Planning tonight's shift</div><div class="caption" id="loadMsg" style="margin-top:10px">Fitting pick model from fleet logs</div><div class="bar"><i id="loadBar"></i></div></div></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
